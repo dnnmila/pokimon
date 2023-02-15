@@ -1,0 +1,1442 @@
+[
+    {
+        "ID": "X01",
+        "Name": "Absorb_Kabuto",
+        "Power": 1,
+        "Type": "GRASS",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X02",
+        "Name": "Absorb",
+        "Power": 2,
+        "Type": "GRASS",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X03",
+        "Name": "Acid",
+        "Power": 2,
+        "Type": "POISON",
+        "Effect?": "TRUE",
+        "EFECTO": "ADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X04",
+        "Name": "AcidArmor",
+        "Power": 0,
+        "Type": "POISON",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE_double",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X05",
+        "Name": "Amnesia",
+        "Power": 0,
+        "Type": "PSYCHIC",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE_double",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X06",
+        "Name": "Anc.Power",
+        "Power": 2,
+        "Type": "ROCK",
+        "Effect?": "TRUE",
+        "EFECTO": "Anc_Power",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X07",
+        "Name": "AuroraBeam_Cloyster",
+        "Power": 3,
+        "Type": "ice",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X08",
+        "Name": "AuroraBeam",
+        "Power": 2,
+        "Type": "ICE",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X09",
+        "Name": "Barrage",
+        "Power": 1,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X10",
+        "Name": "Barrier",
+        "Power": 0,
+        "Type": "PSYCHIC",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE_double",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X11",
+        "Name": "Bind",
+        "Power": 1,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X12",
+        "Name": "Bite",
+        "Power": 2,
+        "Type": "DARK",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X13",
+        "Name": "Blizzard",
+        "Power": 4,
+        "Type": "ICE",
+        "Effect?": "TRUE",
+        "EFECTO": "FROZEN",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X14",
+        "Name": "BodySlam_Wigglytuff_Snorlax",
+        "Power": 3,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "PARALIZE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X15",
+        "Name": "BodySlam",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "PARALIZE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X16",
+        "Name": "BoneClub",
+        "Power": 3,
+        "Type": "GROUND",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X17",
+        "Name": "Bonemerang",
+        "Power": 2,
+        "Type": "GROUND",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X18",
+        "Name": "Bubble",
+        "Power": 2,
+        "Type": "WATER",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X19",
+        "Name": "BubbleBeam",
+        "Power": 3,
+        "Type": "WATER",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X20",
+        "Name": "Bumble",
+        "Power": 2,
+        "Type": "WATER",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X21",
+        "Name": "Clamp",
+        "Power": 2,
+        "Type": "WATER",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X22",
+        "Name": "ConfuseRay",
+        "Power": 0,
+        "Type": "GHOST",
+        "Effect?": "TRUE",
+        "EFECTO": "CONFUSION",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X23",
+        "Name": "Confusion_Kadabra_Slowpoke_Drowzee_Mr_Mine",
+        "Power": 2,
+        "Type": "PSYCHIC",
+        "Effect?": "TRUE",
+        "EFECTO": "CONFUSION",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X24",
+        "Name": "Confusion",
+        "Power": 1,
+        "Type": "PSYCHIC",
+        "Effect?": "TRUE",
+        "EFECTO": "CONFUSION",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X25",
+        "Name": "Conversion",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "Conversion",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X26",
+        "Name": "Counter",
+        "Power": 0,
+        "Type": "FIGHTING",
+        "Effect?": "FIGHTING",
+        "EFECTO": "Counter",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X27",
+        "Name": "CrabHammer",
+        "Power": 3,
+        "Type": "WATER",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D8"
+    },
+    {
+        "ID": "X28",
+        "Name": "DefenseCurl",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X29",
+        "Name": "Dig",
+        "Power": 3,
+        "Type": "GROUND",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X30",
+        "Name": "Disable",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "Disable",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X31",
+        "Name": "DisarmingVoice",
+        "Power": 2,
+        "Type": "FAIRY",
+        "Effect?": "TRUE",
+        "EFECTO": "ADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X32",
+        "Name": "DizzyPunch",
+        "Power": 3,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "CONFUSION",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X33",
+        "Name": "Double-Edge_Snorlax",
+        "Power": 4,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "FAINT",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X34",
+        "Name": "Double-Edge",
+        "Power": 3,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "FAINT",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X35",
+        "Name": "DoubleKick",
+        "Power": 2,
+        "Type": "FIGHTING",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X36",
+        "Name": "DoubleSlap_Chansey",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X37",
+        "Name": "DoubleSlap",
+        "Power": 1,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X38",
+        "Name": "DragonRage",
+        "Power": 4,
+        "Type": "DRAGON",
+        "Effect?": "FALSE",
+        "EFECTO": "Dragon_Rage",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X39",
+        "Name": "DrillPeck",
+        "Power": 3,
+        "Type": "FLYING",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X40",
+        "Name": "Earthquake",
+        "Power": 3,
+        "Type": "GROUND",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X41",
+        "Name": "EggBomb",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X42",
+        "Name": "Ember",
+        "Power": 2,
+        "Type": "FIRE",
+        "Effect?": "TRUE",
+        "EFECTO": "BURN",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X43",
+        "Name": "Explosion",
+        "Power": 5,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "Self_destruct",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X44",
+        "Name": "FireBlast",
+        "Power": 4,
+        "Type": "FIRE",
+        "Effect?": "TRUE",
+        "EFECTO": "BURN",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X45",
+        "Name": "FirePunch",
+        "Power": 3,
+        "Type": "FIRE",
+        "Effect?": "TRUE",
+        "EFECTO": "BURN",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X46",
+        "Name": "FireSpin_RAPIDASH",
+        "Power": 2,
+        "Type": "FIRE",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X47",
+        "Name": "FireSpin",
+        "Power": 2,
+        "Type": "FIRE",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X48",
+        "Name": "Flamethrower",
+        "Power": 3,
+        "Type": "FIRE",
+        "Effect?": "TRUE",
+        "EFECTO": "BURN",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X49",
+        "Name": "FuryAttack_Seaking",
+        "Power": 1,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X50",
+        "Name": "FuryAttack",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X51",
+        "Name": "FuryCutter",
+        "Power": 2,
+        "Type": "BUG",
+        "Effect?": "TRUE",
+        "EFECTO": "Fury_Cutter",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X52",
+        "Name": "FurySwipes_Psyduck",
+        "Power": 1,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X53",
+        "Name": "FurySwipes",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X54",
+        "Name": "FutureSight",
+        "Power": 4,
+        "Type": "PSYCHIC",
+        "Effect?": "TRUE",
+        "EFECTO": "ONCE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X55",
+        "Name": "Growl",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X56",
+        "Name": "Guillotine",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "KILL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X57",
+        "Name": "Gust",
+        "Power": 2,
+        "Type": "FLYING",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X58",
+        "Name": "Harden",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X59",
+        "Name": "Headbutt",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X60",
+        "Name": "HornAttack_Rhyhorn_Goldeen_Omastar",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X61",
+        "Name": "HornAttack",
+        "Power": 1,
+        "Type": "POISON",
+        "Effect?": "TRUE",
+        "EFECTO": "POISON",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X62",
+        "Name": "HornDrill",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "KILL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X63",
+        "Name": "HydroPump",
+        "Power": 4,
+        "Type": "WATER",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X64",
+        "Name": "HyperBeam",
+        "Power": 3,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "ONCE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X65",
+        "Name": "HyperFang",
+        "Power": 3,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X66",
+        "Name": "Hypnosis",
+        "Power": 0,
+        "Type": "PSYCHIC",
+        "Effect?": "TRUE",
+        "EFECTO": "SLEEP",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X67",
+        "Name": "IceBeam",
+        "Power": 3,
+        "Type": "ICE",
+        "Effect?": "TRUE",
+        "EFECTO": "FROZEN",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X68",
+        "Name": "IcePunch",
+        "Power": 3,
+        "Type": "ICE",
+        "Effect?": "TRUE",
+        "EFECTO": "FROZEN",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X69",
+        "Name": "KarateChop",
+        "Power": 2,
+        "Type": "FIGHTING",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D8"
+    },
+    {
+        "ID": "X70",
+        "Name": "LeechLife_Venomoth",
+        "Power": 3,
+        "Type": "Bug",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X71",
+        "Name": "LeachLife",
+        "Power": 2,
+        "Type": "BUG",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X72",
+        "Name": "Leer",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "ADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X73",
+        "Name": "Lick",
+        "Power": 2,
+        "Type": "GHOST",
+        "Effect?": "TRUE",
+        "EFECTO": "PARALIZE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X74",
+        "Name": "LovelyKiss",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "SLEEP",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X75",
+        "Name": "LowKick",
+        "Power": 2,
+        "Type": "FIGHTING",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X76",
+        "Name": "MegaHorn",
+        "Power": 3,
+        "Type": "BUG",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X77",
+        "Name": "Megakick",
+        "Power": 3,
+        "Type": "NORMAL",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X78",
+        "Name": "MegaPunch",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X79",
+        "Name": "Metronome",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "Metronome",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X80",
+        "Name": "MirrorCoat",
+        "Power": 0,
+        "Type": "PSYCHIC",
+        "Effect?": "TRUE",
+        "EFECTO": "Mirror_Coat",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X81",
+        "Name": "MirrorMove",
+        "Power": 0,
+        "Type": "FLYING",
+        "Effect?": "TRUE",
+        "EFECTO": "MirrorMove",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X82",
+        "Name": "NightShade",
+        "Power": 0,
+        "Type": "GHOST",
+        "Effect?": "TRUE",
+        "EFECTO": "NightShade",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X83",
+        "Name": "PayDay",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "PayDay",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X84",
+        "Name": "Peck_Gooldeen",
+        "Power": 1,
+        "Type": "FLYING",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X85",
+        "Name": "Peck",
+        "Power": 2,
+        "Type": "FLYING",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X86",
+        "Name": "PlayRough",
+        "Power": 3,
+        "Type": "FAIRY",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X87",
+        "Name": "PoisonGas",
+        "Power": 0,
+        "Type": "POISON",
+        "Effect?": "TRUE",
+        "EFECTO": "POISON",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X88",
+        "Name": "PoisonPowder",
+        "Power": 0,
+        "Type": "POISON",
+        "Effect?": "TRUE",
+        "EFECTO": "POISON",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X89",
+        "Name": "PoisonSting",
+        "Power": 1,
+        "Type": "POISON",
+        "Effect?": "TRUE",
+        "EFECTO": "POISON",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X90",
+        "Name": "Pound_Grimer",
+        "Power": 1,
+        "Type": "NORMAL",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X91",
+        "Name": "Pound",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X92",
+        "Name": "Protect",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "Protect",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X93",
+        "Name": "Psybeam",
+        "Power": 2,
+        "Type": "PSYCHIC",
+        "Effect?": "TRUE",
+        "EFECTO": "POISON",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X94",
+        "Name": "Psychic",
+        "Power": 3,
+        "Type": "PSYCHIC",
+        "Effect?": "TRUE",
+        "EFECTO": "ADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X95",
+        "Name": "QuickAttack_Vulpix",
+        "Power": 1,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "QuickAttack",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X96",
+        "Name": "QuickAttack",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "QuickAttack",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X97",
+        "Name": "Rage",
+        "Power": 1,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "ADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X98",
+        "Name": "RazorLeaf",
+        "Power": 3,
+        "Type": "GRASS",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D8"
+    },
+    {
+        "ID": "X99",
+        "Name": "Reflect",
+        "Power": 0,
+        "Type": "PSYCHIC",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE_double",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X100",
+        "Name": "Roar",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "SWITCH",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X101",
+        "Name": "RockThrow",
+        "Power": 2,
+        "Type": "ROCK",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X102",
+        "Name": "Rollout",
+        "Power": 2,
+        "Type": "ROCK",
+        "Effect?": "TRUE",
+        "EFECTO": "Rollout",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X103",
+        "Name": "SandAttack",
+        "Power": 0,
+        "Type": "GROUND",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X104",
+        "Name": "Scratch",
+        "Power": 1,
+        "Type": "NORMAL",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X105",
+        "Name": "Screech",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "ADVANTAGE_DOUBLE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X106",
+        "Name": "SeismicToss",
+        "Power": 0,
+        "Type": "FIGHTING",
+        "Effect?": "TRUE",
+        "EFECTO": "SeismicToss",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X107",
+        "Name": "Self-Destruct",
+        "Power": 4,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "Self_destruct",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X108",
+        "Name": "ShadowBall",
+        "Power": 2,
+        "Type": "DARK",
+        "Effect?": "TRUE",
+        "EFECTO": "ADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X109",
+        "Name": "Sharpen",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "ADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X110",
+        "Name": "Sing",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "SLEEP",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X111",
+        "Name": "SkullBash",
+        "Power": 3,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "ONCE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X112",
+        "Name": "SkyAttack",
+        "Power": 4,
+        "Type": "FLYING",
+        "Effect?": "TRUE",
+        "EFECTO": "Sky_Attack",
+        "Dice": "D8"
+    },
+    {
+        "ID": "X113",
+        "Name": "Slam",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X114",
+        "Name": "Slash_Persian",
+        "Power": 3,
+        "Type": "NORMAL",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D8"
+    },
+    {
+        "ID": "X115",
+        "Name": "Slash",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D8"
+    },
+    {
+        "ID": "X116",
+        "Name": "SleepPowder",
+        "Power": 0,
+        "Type": "GRASS",
+        "Effect?": "TRUE",
+        "EFECTO": "PARALIZE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X117",
+        "Name": "Sludge",
+        "Power": 3,
+        "Type": "POISON",
+        "Effect?": "TRUE",
+        "EFECTO": "POISON",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X118",
+        "Name": "SludgeBomb",
+        "Power": 3,
+        "Type": "POISON",
+        "Effect?": "TRUE",
+        "EFECTO": "POISON",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X119",
+        "Name": "Smog_Magmar",
+        "Power": 1,
+        "Type": "POISON",
+        "Effect?": "TRUE",
+        "EFECTO": "POISON",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X120",
+        "Name": "Smog_Flareon",
+        "Power": 1,
+        "Type": "POISON",
+        "Effect?": "TRUE",
+        "EFECTO": "POISON",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X121",
+        "Name": "Smog",
+        "Power": 2,
+        "Type": "POISON",
+        "Effect?": "TRUE",
+        "EFECTO": "POISON",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X122",
+        "Name": "Smokescreen",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X123",
+        "Name": "SolarBeam",
+        "Power": 4,
+        "Type": "GRASS",
+        "Effect?": "TRUE",
+        "EFECTO": "ONCE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X124",
+        "Name": "SpikeCannon",
+        "Power": 1,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X125",
+        "Name": "Splash",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X126",
+        "Name": "Spore",
+        "Power": 0,
+        "Type": "GRASS",
+        "Effect?": "TRUE",
+        "EFECTO": "SLEEP",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X127",
+        "Name": "Stomp",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X128",
+        "Name": "StringShot",
+        "Power": 0,
+        "Type": "BUG",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X129",
+        "Name": "StunSpore",
+        "Power": 0,
+        "Type": "GRASS",
+        "Effect?": "TRUE",
+        "EFECTO": "PARALIZE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X130",
+        "Name": "Submission",
+        "Power": 3,
+        "Type": "FIGHTING",
+        "Effect?": "TRUE",
+        "EFECTO": "Own_Faint",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X131",
+        "Name": "SuperFang",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "Super_Fang",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X132",
+        "Name": "Superpower",
+        "Power": 4,
+        "Type": "FIGHTING",
+        "Effect?": "TRUE",
+        "EFECTO": "Own_Disadvantage",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X133",
+        "Name": "Supersonic",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "CONFUSION",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X134",
+        "Name": "Swagger",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "CONFUSION",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X135",
+        "Name": "Swift",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "ADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X136",
+        "Name": "SwordsDance",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "ADVANTAGE_DOUBLE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X137",
+        "Name": "Tackle_ratata",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X138",
+        "Name": "Tackle",
+        "Power": 1,
+        "Type": "NORMAL",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X139",
+        "Name": "TailWhip",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "ADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X140",
+        "Name": "TakeDown_Tauros",
+        "Power": 3,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "Own_Faint",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X141",
+        "Name": "TakeDown",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "Own_Faint",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X142",
+        "Name": "Teleport",
+        "Power": 0,
+        "Type": "PSYCHIC",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X143",
+        "Name": "Thrash",
+        "Power": 3,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "Own_Confusion",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X144",
+        "Name": "Thunder",
+        "Power": 4,
+        "Type": "ELECTRIC",
+        "Effect?": "TRUE",
+        "EFECTO": "PARALIZE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X145",
+        "Name": "ThunderBolt",
+        "Power": 3,
+        "Type": "ELECTRIC",
+        "Effect?": "TRUE",
+        "EFECTO": "PARALIZE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X146",
+        "Name": "ThunderPunch",
+        "Power": 3,
+        "Type": "ELECTRIC",
+        "Effect?": "TRUE",
+        "EFECTO": "PARALIZE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X147",
+        "Name": "ThunderShock",
+        "Power": 2,
+        "Type": "ELECTRIC",
+        "Effect?": "TRUE",
+        "EFECTO": "PARALIZE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X148",
+        "Name": "ThunderWave",
+        "Power": 0,
+        "Type": "ELECTRIC",
+        "Effect?": "TRUE",
+        "EFECTO": "PARALIZE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X149",
+        "Name": "Transform",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "Transform",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X150",
+        "Name": "TriAttack",
+        "Power": 3,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "Tri_Attack",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X151",
+        "Name": "Twineedle",
+        "Power": 1,
+        "Type": "BUG",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X152",
+        "Name": "VineWhip",
+        "Power": 2,
+        "Type": "GRASS",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X153",
+        "Name": "ViseGrip",
+        "Power": 2,
+        "Type": "NORMAL",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X154",
+        "Name": "WaterFall",
+        "Power": 3,
+        "Type": "WATER",
+        "Effect?": "TRUE",
+        "EFECTO": "DISADVANTAGE",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X155",
+        "Name": "WaterGun",
+        "Power": 2,
+        "Type": "WATER",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X156",
+        "Name": "WaterPulse",
+        "Power": 3,
+        "Type": "WATER",
+        "Effect?": "TRUE",
+        "EFECTO": "CONFUSION",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X157",
+        "Name": "Whirlwind",
+        "Power": 0,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "ChangePokemon",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X158",
+        "Name": "WingAttack",
+        "Power": 3,
+        "Type": "FLYING",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    },
+    {
+        "ID": "X159",
+        "Name": "Wrap",
+        "Power": 1,
+        "Type": "NORMAL",
+        "Effect?": "TRUE",
+        "EFECTO": "DOUBLE",
+        "Dice": "D4"
+    },
+    {
+        "ID": "X160",
+        "Name": "X-Scissor",
+        "Power": 3,
+        "Type": "BUG",
+        "Effect?": "FALSE",
+        "EFECTO": "NULL",
+        "Dice": "D6"
+    }
+]
