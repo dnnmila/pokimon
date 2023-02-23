@@ -1,57 +1,52 @@
 import sqlite3
-import numpy as np
-# conn = sqlite3.connect('pokimon.sqlite')
-# c = conn.cursor()
-# conn.commit()
-# # Close Connection
-# conn.close()
 
-conn = sqlite3.connect('pokimon.sqlite')
-
-
-global BattleFinish, phase, P1, P1Level, P1Type, P1Atk1, P1Atk2, P1TM, P1Extra, P2, P2Level, P2Type, P2Atk1, P2Atk2, P2TM, P2Extra
-global P1Bonus, P2Bonus, turn, Round, P1AtkSelected, P2AtkSelected
-
-player = "Attacker"
-Round = 0
-P1TM = "000"
-P2TM = "000"
-P1BonusType = 0
-P2BonusType = 0
-phase = 0
+global P1, P1Level, P1Type, P1Atk1, P1Atk2, P1TM, P1Extra, P1Attatch, P2, P2Level, P2Type, P2Atk1, P2Atk2, P2TM, P2Extra, P2Attatch
+global BattleFinish, Turn, Round
+global P1AtkSelID, P1AtkSelected, P1AtkType, P1AtkPower, P1Effect, P1EffectActivate, P1DiceType, P1BonusType
+global P2AtkSelID, P2AtkSelected, P2AtkType, P2AtkPower, P2Effect, P2EffectActivate, P2DiceType, P2BonusType
 
 
 def selectPokemon(player):
-    global P1, P1Level, P1Type, P2, P2Level, P2Type
+    global P1, P1Level, P1Type, P1Atk1, P1Atk2, P1TM, P1Extra, P1Attatch, P2, P2Level, P2Type, P2Atk1, P2Atk2, P2TM, P2Extra, P2Attatch
     conn = sqlite3.connect('pokimon.sqlite')
     c = conn.cursor()
-    global BattleFinish
     found = False
     while found == False:
         pokedex = input("Select #Pokedex de Pokemon ")
-        c.execute("SELECT * FROM pokemons WHERE POKEDEX = (?)", (pokedex,))
-        Pokemon = c.fetchone()
+        c.execute("SELECT * FROM pokemons WHERE ID = (?)", (pokedex,))
+        pokemon = c.fetchone()
 
-        if Pokemon == None:
+        if pokemon == None:
             print("Pokemon not found , please try again ")
 
         else:
             found = True
             conn.commit()
             conn.close()
-            if player == "Attacker":
+            if player == "P1":
                 P1 = pokemon[2]
                 P1Level = pokemon[3]
                 P1Type = pokemon[4]
                 P1Atk1 = getAttack(pokemon[5])
                 P1Atk2 = getAttack(pokemon[6])
-                print("Pokemon Selected: " + P1)
+                P1TM = pokemon[7]
+                P1Extra = pokemon[8]
+                P1Attatch = pokemon[9]
+            elif player == "P2":
+                P2 = pokemon[2]
+                P2Level = pokemon[3]
+                P2Type = pokemon[4]
+                P2Atk1 = getAttack(pokemon[5])
+                P2Atk2 = getAttack(pokemon[6])
+                P2TM = pokemon[7]
+                P2Extra = pokemon[8]
+                P2Attatch = pokemon[9]
 
 
 def getAttack(Attack):
     conn = sqlite3.connect('pokimon.sqlite')
     c = conn.cursor()
-    c.execute("SELECT * FROM attacks WHERE ATKID = (?)", (Attack,))
+    c.execute("SELECT * FROM attacks WHERE ID = (?)", (Attack,))
     attackfound = c.fetchone()
     if attackfound == None:
         print("Attack Not Found")
@@ -208,7 +203,45 @@ def attack_Bonus(Attack_type, PkmRival_type):
         return status
 
 
-def selectAttack(Pokemon, atk1, atk2, TM, rivalType):
+def passAttack(Player, atk, bonusType):
+    global P1AtkSelID, P1AtkSelected, P1AtkType, P1AtkPower, P1Effect, P1EffectActivate, P1DiceType, P1BonusType
+    global P2AtkSelID, P2AtkSelected, P2AtkType, P2AtkPower, P2Effect, P2EffectActivate, P2DiceType, P2BonusType
+    if Player == "P1":
+        P1AtkSelID = atk[0]
+        P1AtkSelected = atk[1]
+        P1AtkType = atk[2]
+        P1AtkPower = atk[3]
+        P1Effect = atk[4]
+        P1EffectActivate = atk[5]
+        P1DiceType = atk[6]
+        P1BonusType = bonusType
+    elif Player == "P2":
+        P2AtkSelID = atk[0]
+        P2AtkSelected = atk[1]
+        P2AtkType = atk[2]
+        P2AtkPower = atk[3]
+        P2Effect = atk[4]
+        P2EffectActivate = atk[5]
+        P2DiceType = atk[6]
+        P1BonusType = bonusType
+
+
+def selectAttack(player):
+    global P1, P1Atk1, P1Atk2, P1TM, P1Type, P2, P2Atk1, P2Atk2, P2TM, P2Type
+
+    if player == "P1":
+        Pokemon = P1
+        atk1 = P1Atk1
+        atk2 = P1Atk2
+        TM = P1TM
+        rivalType = P2Type
+    elif player == "P2":
+        Pokemon = P2
+        atk1 = P2Atk1
+        atk2 = P2Atk2
+        TM = P2TM
+        rivalType = P1Type
+
     bonusType1 = 0
     bonusType2 = 0
     bonusTypeTM = 0
@@ -241,17 +274,17 @@ def selectAttack(Pokemon, atk1, atk2, TM, rivalType):
 
             i = int(input())
             if i == 1:
-                print("Attack " + atk1[1] + " selected")
-                return atk1[1], atk1[2], atk1[3], atk1[4], atk1[5], atk1[6], bonusType1
+                print("Attack selected:")
+                passAttack(player, atk1, bonusType1)
 
             elif i == 2:
-                print("Attack " + atk2[1] + " selected")
-                return atk2[1], atk2[2], atk2[3], atk2[4], atk2[5], atk2[6], bonusType2
+                print("Attack selected:")
+                passAttack(player, atk2, bonusType2)
             else:
                 print("Error attack not selected")
         else:
             # No TM and NO Atk2
-            print("Attack  selected")
+            print("Attack selected:")
             status = attack_Bonus(atk1[2], rivalType)
             if status == "advantage":
                 print("1.-" + atk1[1] + ":" + str(atk1[3]) + "-> +2")
@@ -262,7 +295,8 @@ def selectAttack(Pokemon, atk1, atk2, TM, rivalType):
             elif status == "neutro":
                 print("1.-" + atk1[1] + ":" + str(atk1[3]) + "-> 0")
                 bonusType1 = 0
-            return atk1[1], atk1[2], atk1[3], atk1[4], atk1[5], atk1[6], bonusType1
+            # Pasar Valores
+            passAttack(player, atk1, bonusType1)
     else:
         # With TM and with ATK2
         if (atk2[0] != "000"):
@@ -301,16 +335,16 @@ def selectAttack(Pokemon, atk1, atk2, TM, rivalType):
                 bonusTypeTM = 0
             i = int(input())
             if i == 1:
-                print("Attack " + atk1[1] + " selected")
-                return atk1[1], atk1[2], atk1[3], atk1[4], atk1[5], atk1[6], bonusType1
+                print("Attack selected:")
+                passAttack(player, atk1, bonusType1)
 
             elif i == 2:
-                print("Attack " + atk2[1] + " selected")
-                return atk2[1], atk2[2], atk2[3], atk2[4], atk2[5], atk2[6], bonusType2
+                print("Attack selected:")
+                passAttack(player, atk2, bonusType2)
 
             elif i == 3:
-                print("Attack " + TM[1] + " selected")
-                return TM[1], TM[2], TM[3], TM[4], TM[5], TM[6], bonusTypeTM
+                print("Attack selected:")
+                passAttack(player, TM, bonusTypeTM)
             else:
                 print("Error attack not selected")
         else:
@@ -338,12 +372,12 @@ def selectAttack(Pokemon, atk1, atk2, TM, rivalType):
                 bonusTypeTM = 0
             i = int(input())
             if i == 1:
-                print("Attack " + atk1[1] + " selected")
-                return atk1[1], atk1[2], atk1[3], atk1[4], atk1[5], atk1[6], bonusType1
+                print("Attack selected:")
+                passAttack(player, atk1, bonusType1)
 
             elif i == 3:
-                print("Attack " + TM[1] + " selected")
-                return TM[1], TM[2], TM[3], TM[4], TM[5], TM[6], bonusTypeTM
+                print("Attack selected:")
+                passAttack(player, TM, bonusTypeTM)
             else:
                 print("Error attack not selected")
 
@@ -565,59 +599,39 @@ def Disable(Atk1, Atk2, TM, Rival, AttackSelected):
             print("3.-" + TM)
 
 
+Round = 0
 BattleFinish = False
+Player = "P1"
+phase = 0
 if __name__ == '__main__':
 
     while (BattleFinish != True):
-        # P1 select Pokemon
+       # P1 select Pokemon
         if phase == 0:
-            print("\n Phase 0: ->")
+            Player = "P1"
             print("P1 Select")
-            pokemon = selectPokemon()
-            P1 = pokemon[2]
-            P1Level = pokemon[3]
-            P1Type = pokemon[4]
-            P1Atk1 = getAttack(pokemon[5])
-            P1Atk2 = getAttack(pokemon[6])
+            selectPokemon(Player)
             print("Pokemon Selected: " + P1)
+            print(P1Atk1)
             phase = 1
         # P2 select Pokemon
         elif phase == 1:
-            print("\n Phase 1: ->")
-            print("P2 Select")
-            pokemon = selectPokemon()
-            P2 = pokemon[2]
-            P2Level = pokemon[3]
-            P2Type = pokemon[4]
-            P2Atk1 = getAttack(pokemon[5])
-            P2Atk2 = getAttack(pokemon[6])
+            Player = "P2"
+            print("\nP2 Select")
+            selectPokemon(Player)
             print("Pokemon Selected: " + P2)
             phase = 2
         # P1 select Attack
         elif phase == 2:
-            print("\n Phase 2: ->")
-            tuplaAttack = selectAttack(
-                P1, P1Atk1, P1Atk2, P1TM, P2Type)
-            P1AtkSelected = tuplaAttack[0]
-            P1AtkType = tuplaAttack[1]
-            P1AtkPower = tuplaAttack[2]
-            P1AtkEffect = tuplaAttack[3]
-            P1AtkActivate = tuplaAttack[4]
-            P1AtkDice = tuplaAttack[5]
-            P1BonusType = tuplaAttack[6]
+            Player = "P1"
+            selectAttack(Player)
+            print(P1AtkSelected)
             phase = 3
         # P2 select attack
         elif phase == 3:
-            print("\n Phase 3: ->")
-            tuplaAttack = selectAttack(
-                P2, P2Atk1, P2Atk2, P2TM, P1Type)
-            P2AtkSelected = tuplaAttack[0]
-            P2AtkType = tuplaAttack[1]
-            P2AtkPower = tuplaAttack[2]
-            P2AtkEffect = tuplaAttack[3]
-            P2AtkActivate = tuplaAttack[4]
-            P2AtkDice = tuplaAttack[5]
-            P2BonusType = tuplaAttack[6]
+            Player = "P2"
+            selectAttack(Player)
+            print(P2AtkSelected)
             phase = 4
         # P1 effect
         elif phase == 4:
