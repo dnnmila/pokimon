@@ -9,9 +9,11 @@ import numpy as np
 conn = sqlite3.connect('pokimon.sqlite')
 
 
-global BattleFinish, phase, P1, P1Level, P1Type, P1AtkSelected, P1TM, P1Extra, P2, P2Level, P2Type, P2AtkSelected, P2TM, P2Extra, P1Bonus, P2Bonus
+global BattleFinish, phase, P1, P1Level, P1Type, P1Atk1, P1Atk2, P1TM, P1Extra, P2, P2Level, P2Type, P2Atk1, P2Atk2, P2TM, P2Extra
+global P1Bonus, P2Bonus, turn, Round, P1AtkSelected, P2AtkSelected
 
-
+player = "Attacker"
+Round = 0
 P1TM = "000"
 P2TM = "000"
 P1BonusType = 0
@@ -19,7 +21,8 @@ P2BonusType = 0
 phase = 0
 
 
-def selectPokemon():
+def selectPokemon(player):
+    global P1, P1Level, P1Type, P2, P2Level, P2Type
     conn = sqlite3.connect('pokimon.sqlite')
     c = conn.cursor()
     global BattleFinish
@@ -36,7 +39,13 @@ def selectPokemon():
             found = True
             conn.commit()
             conn.close()
-            return Pokemon
+            if player == "Attacker":
+                P1 = pokemon[2]
+                P1Level = pokemon[3]
+                P1Type = pokemon[4]
+                P1Atk1 = getAttack(pokemon[5])
+                P1Atk2 = getAttack(pokemon[6])
+                print("Pokemon Selected: " + P1)
 
 
 def getAttack(Attack):
@@ -339,9 +348,8 @@ def selectAttack(Pokemon, atk1, atk2, TM, rivalType):
                 print("Error attack not selected")
 
 
-def statusEffect(effect):
-    attacker = "Normal"
-    defender = "Normal"
+def statusEffect(effect, attacker, defender):
+
     if effect == "Advantage":
         attacker = "Advantage"
         return attacker, defender
@@ -388,14 +396,14 @@ def statusEffect(effect):
         print("effect no found ")
 
 
-def activateEffect(pokemon, effect, activate):
+def activateEffect(pokemon, effect, activate, statusP1, statusP2):
 
     if effect != "NONE":
         if activate != "Automatic":
             i = int(input("\n" + pokemon + ":  effect Activated ?"))
             if i == 1:
                 print("Effect Activated!!!!")
-                status = statusEffect(effect)
+                status = statusEffect(effect, statusP1, statusP2)
                 print("status:")
                 print(status)
                 return status
@@ -435,6 +443,126 @@ def checkStatusP2(pokemon, status):
     if status == "Sleep":
         print(pokemon + " is Sleeping, Unable to use attack:")
         return status
+    else:
+        return status
+
+
+# Function from effects
+def BrickBreak(status):
+    if status == "Disdadvantage":
+        status = "Normal"
+        return status
+
+
+def Brine(AttackPower):
+    AttackPower = +1
+    return AttackPower
+
+
+def Conversion(Type, RivalType):
+    Type = RivalType
+    return Type
+
+
+def Conversion2(Type, AttackType):
+    if AttackType == "NORMAL" or AttackType == "GRASS" or AttackType == "FLYING" or AttackType == "POISON" or AttackType == "ROCK" or AttackType == "BUG" or AttackType == "PSYCHIC" or AttackType == "ICE" or AttackType == "DRAGON" or AttackType == "STEEL" or AttackType == "FAIRY":
+        Type = "STEEL"
+        return Type
+    elif AttackType == "GRASS" or AttackType == "WATER" or AttackType == "GROUND" or AttackType == "ELECTRIC":
+        Type = "GRASS"
+        return Type
+    elif AttackType == "GHOST" or AttackType == "DARK":
+        Type = "DARK"
+        return Type
+    elif AttackType == "FIRE":
+        Type = "WATER"
+        return Type
+    elif AttackType == "FIGHTING":
+        Type = "FLYING"
+        return Type
+    else:
+        print("Error on Effect Conversion 2")
+
+
+def Counter(AttackPower, RivalAttack):
+    AttackPower = RivalAttack
+    return AttackPower
+
+
+def Covet(RivalAttatch):
+    if RivalAttatch != None:
+        PlayerAttach = RivalAttatch
+        RivalAttatch = None
+        return PlayerAttach, RivalAttatch
+    else:
+        print("No attatch Item on Player")
+
+
+def protect(Attack, Effect, Bonus):
+    Attack = 0
+    Effect = 0
+    Bonus = 0
+    return Attack, Effect, Bonus
+
+
+def Disable(Atk1, Atk2, TM, Rival, AttackSelected):
+    # No atk2 and NO tm
+    if Atk2 == "000" and TM == "000":
+        print("Unable to active effect , user only have 1 attack")
+    # No atk 2 but Yes TM
+    elif Atk2 == "000" and TM != "000":
+        print("Select one attack to remove")
+        print("1.-" + Atk1)
+        print("2.-" + TM)
+        i = int(input())
+        if i == 1:
+            if AttackSelected == Atk1:
+                AttackSelected == TM
+                Atk1 = "000"
+                return Atk1, Atk2, TM, AttackSelected
+            else:
+                Atk1 = "000"
+                return Atk1, Atk2, TM, AttackSelected
+
+        if i == 2:
+            if AttackSelected == TM:
+                AttackSelected == Atk1
+                TM = "000"
+                return Atk1, Atk2, TM, AttackSelected
+            else:
+                TM = "000"
+                return Atk1, Atk2, TM, AttackSelected
+    # Atk2 Yes TM Yes
+    else:
+        if TM == "000":
+            print("Select one attack to remove")
+            print("1.-" + Atk1)
+            print("2.-" + Atk2)
+            print("3.-" + TM)
+            i = int(input())
+            if i == 1:
+                if AttackSelected == Atk1:
+                    x = int(input("Select  a new Attack"))
+                    AttackSelected == Atk2
+                    Atk1 = "000"
+                    return Atk1, Atk2, AttackSelected
+                else:
+                    Atk1 = "000"
+                    return Atk1, Atk2, AttackSelected
+
+            if i == 2:
+                if AttackSelected == Atk2:
+                    AttackSelected == Atk1
+                    Atk2 = None
+                    return Atk1, Atk2, AttackSelected
+                else:
+                    Atk2 = "000"
+                    return Atk1, Atk2, AttackSelected
+        else:
+            print("Select one attack to remove")
+            print("1.-" + Atk1)
+            print("2.-" + Atk2)
+            print("3.-" + TM)
 
 
 BattleFinish = False
@@ -494,35 +622,39 @@ if __name__ == '__main__':
         # P1 effect
         elif phase == 4:
             print("\n Phase 4: ->")
-            tupleEffect = activateEffect(P1, P1AtkEffect, P1AtkActivate)
-            print("TuplaEffect:")
-            print(tupleEffect)
+            P1status = "Normal"
+            P2status = "Normal"
+            tupleEffect = activateEffect(
+                P1, P1AtkEffect, P1AtkActivate, P1status, P2status)
+
             P1status = tupleEffect[0]
             P2status = tupleEffect[1]
             print("P1Status:" + P1status)
             print("P2Status:" + P2status)
 
             phase = 5
+            # verify status P2 and attack
         elif phase == 5:
             print("\n Phase 5: ->")
             P2status = checkStatusP2(P2, P2status)
+
+            # If no attack P2
             if P2status == "Frozen" or P2status == "Sleep" or P2status == "Paralized":
                 P2AtkPower = 0
                 P2BonusType = 0
-                phase = 6
+                phase = 7
             else:
-                tupleEffect = activateEffect(P2, P2AtkEffect, P2AtkActivate)
-                print("TuplaEffect:")
-                print(tupleEffect)
+                tupleEffect = activateEffect(
+                    P2, P2AtkEffect, P2AtkActivate, P2status, P1status)
                 P1status = tupleEffect[1]
                 P2status = tupleEffect[0]
-                print("P1Status:" + P1status)
-                print("P2Status:" + P2status)
                 phase = 6
-
+        # Verify status P1
         elif phase == 6:
             print("\n Phase 6: ->")
             P1status = checkStatusP2(P1, P1status)
+
+            # if No attack P1
             if P1status == "Frozen" or P1status == "Sleep" or P1status == "Paralized":
                 P1AtkPower = 0
                 P1BonusType = 0
@@ -530,4 +662,10 @@ if __name__ == '__main__':
             else:
                 phase = 7
         elif phase == 7:
+            print("\n Phase 7: ->")
+            print("P1Status:" + P1status)
+            print("P2Status:" + P2status)
+
+            phase = 8
+        elif phase == 8:
             pass
