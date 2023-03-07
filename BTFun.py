@@ -725,3 +725,20 @@ def sumPartial():
           str(GloVar.P1AtkPower) + " + B:" + str(GloVar.P1BonusType) + "->Total:" + str(GloVar.TotalP1))
     print(GloVar.P2 + ":" + " L:" + str(GloVar.P2Level + GloVar.P2Extra) + " + A:" +
           str(GloVar.P2AtkPower) + " + B:" + str(GloVar.P2BonusType) + "->Total:" + str(GloVar.TotalP2))
+
+
+def effectBeforeSelectAttack(player):
+    if player == "P1":
+        if GloVar.P2Atk1 == "033" or GloVar.P2Atk2 == "033":
+            i = int(input("P2 will use Disable ?"))
+            if i == 1:
+                effects.Disable("P2")
+            else:
+                return
+
+        if GloVar.P2Atk1 == "186" or GloVar.P2Atk2 == "186":
+            i = int(input("P2 will use Taunt ?"))
+            if i == 1:
+                effects.Taunt("P2")
+            else:
+                return

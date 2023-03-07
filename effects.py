@@ -276,6 +276,7 @@ def Disable(player):
         print("Disable Activated!!!")
         print("1.-" + GloVar.P1Atk1[1])
         print("2.-" + GloVar.P1Atk2[1])
+        print("3.- TM")
         if GloVar.P1TM[0] != "000":
             print("3.-" + GloVar.P1TM[1])
 
@@ -759,3 +760,7 @@ def SecretPower(player):
         if i == 1:
             print("User gain Advantage")
             GloVar.P2Effect = "Paralyzed"
+
+
+def Taunt(player):
+    print("Taunt effect activated")
