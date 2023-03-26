@@ -8,76 +8,76 @@ import math
 # Fuente: https://stackoverflow.com/a/52617883/2116607
 
 
-def upto3(player):
+def upto3(player, arduino):
     if player == "P1":
         if GloVar.P2Effect != "Disadvantage" and GloVar.P2Effect != "DoubleDisadvantage":
             print("Effected Activated, Minimun Dice = 3")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
         elif GloVar.P2Effect == "Disadvantage":
             print("User has Disadvantage , discard the highest from 2 dices")
             print("Effected Activated, Minimun Dice = 3")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
         elif GloVar.P2Effect == "DoubleDisadvantage":
             print("User has Double Disadvantage , discard the 2 highest from 3 dices")
             print("Effected Activated, Minimun Dice = 3")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
     elif player == "P2":
         if GloVar.P1Effect != "Disadvantage" and GloVar.P1Effect != "DoubleDisadvantage":
             print("Effected Activated, Minimun Dice = 3")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
         elif GloVar.P1Effect == "Disadvantage":
             print("User has Disadvantage , discard the highest from 2 dices")
             print("Effected Activated, Minimun Dice = 3")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
         elif GloVar.P1Effect == "DoubleDisadvantage":
             print("User has Double Disadvantage , discard the 2 highest from 3 dices")
             print("Effected Activated, Minimun Dice = 3")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
 
 
-def doubleDice(player):
+def doubleDice(player, arduino):
     if player == "P1":
         if GloVar.P2Effect != "Disadvantage" and GloVar.P2Effect != "DoubleDisadvantage":
             print("Effected Activated, Sum 2 Dices")
             print("First dice:")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
             print("Second dice:")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
         elif GloVar.P2Effect == "Disadvantage":
             print("User has Disadvantage , discard the highest from 3 dices")
             print("Effected Activated, Sum 2 lowest Dices")
             print("First dice:")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
             print("Second dice:")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
         elif GloVar.P2Effect == "DoubleDisadvantage":
             print("User has Double Disadvantage , discard the 2 highest from 4 dices")
             print("Effected Activated, Sum 2 lowest Dices")
             print("First dice:")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
             print("Second dice:")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
     elif player == "P2":
         if GloVar.P1Effect != "Disadvantage" and GloVar.P1Effect != "DoubleDisadvantage":
             print("Effected Activated, Sum 2 Dices")
             print("First dice:")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
             print("Second dice:")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
         elif GloVar.P1Effect == "Disadvantage":
             print("User has Disadvantage , discard the highest from 3 dices")
             print("Effected Activated, Sum 2 lowest Dices")
             print("First dice:")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
             print("Second dice:")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
         elif GloVar.P1Effect == "DoubleDisadvantage":
             print("User has Double Disadvantage , discard the 2 highest from 4 dices")
             print("Effected Activated, Sum 2 lowest Dices")
             print("First dice:")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
             print("Second dice:")
-            BTFun.throwDice(player)
+            BTFun.throwDice(player, arduino)
 
 
 def redondear(n: float, decimals: int = 0) -> float:
@@ -276,33 +276,38 @@ def Disable(player):
         print("Disable Activated!!!")
         print("1.-" + GloVar.P1Atk1[1])
         print("2.-" + GloVar.P1Atk2[1])
-        print("3.- TM")
         if GloVar.P1TM[0] != "000":
             print("3.-" + GloVar.P1TM[1])
 
         i = int(input("Select One move to disable :"))
         if i == 1:
             GloVar.P1Atk1 = GloVar.P1Atk2
-            GloVar.P1Atk2[0] = "000"
+            GloVar.P1Atk2 = ("000", "NULL", "NULL", 0, "NULL", "NONE", "D6")
             BTFun.selectAttack("P1")
+            GloVar.Phase = 6
+            return
         elif i == 2:
-            GloVar.P2Atk2[0] = "000"
+            GloVar.P1Atk2 = ("000", "NULL", "NULL", 0, "NULL", "NONE", "D6")
             BTFun.selectAttack("P1")
+            GloVar.Phase = 6
+            return
         elif i == 3:
-            GloVar.P1TM[0] = "000"
+            GloVar.P1TM = ("000", "NULL", "NULL", 0, "NULL", "NONE", "D6")
             BTFun.selectAttack("P1")
+            GloVar.Phase = 6
+            return
 
 
 def DreamEater(player):
     print("Dream Eater Effect->")
     if player == "P1":
-        if GloVar.P2Status == "Asleep":
+        if GloVar.P2Status == "Sleep":
             print("Rival is  Asleep , effect Activated + 2 ")
             GloVar.P1AtkPower = GloVar.P1AtkPower + 2
         else:
             print("Rival is not Asleep , effect Not Activated")
     elif player == "P2":
-        if GloVar.P1Status == "Asleep":
+        if GloVar.P1Status == "Sleep":
             print("Rival is  Asleep , effect Activated + 2 ")
             GloVar.P2AtkPower = GloVar.P2AtkPower + 2
         else:
@@ -419,7 +424,7 @@ def HiddenPower(player):
                  "ROCK", "BUG", "GHOST", "ELECTRIC", "PSYCHIC", "ICE", "DRAGON", "DARK", "STEEL", "FAIRY"]
     N = random.randint(0, 17)
     if player == "P1":
-        print("Effect ACtivated , Attack Type is select randomly")
+        print("Effect Activated , Attack Type is select randomly")
         print("New type :" + listTypes[N])
         GloVar.P1AtkType = listTypes[N]
         GloVar.P1BonusType = BTFun.attack_Bonus(
@@ -699,6 +704,15 @@ def RolloOut(player):
         GloVar.P2AtkPower = GloVar.P2AtkPower + GloVar.Round
 
 
+def PlusRound(player):
+    print("PlusRound Effect ->")
+    print("Atk +1 for each round")
+    if player == "P1":
+        GloVar.P1AtkPower = GloVar.P1AtkPower + GloVar.Round
+    elif player == "P2":
+        GloVar.P2AtkPower = GloVar.P2AtkPower + GloVar.Round
+
+
 def SafeGuard(player):
     print("SafeGuard Effect -> ")
     print("Pokemon can not gaint any status ")
@@ -764,3 +778,47 @@ def SecretPower(player):
 
 def Taunt(player):
     print("Taunt effect activated")
+
+
+def StealthRock(player):
+    print("Effect not ready")
+
+
+def Transform(player):
+    print("Pending")
+
+
+def Sketch(player):
+    print("Pending")
+
+
+def NoItems(player):
+    print("pending")
+
+
+def Thief(player):
+    print("pending")
+
+
+def TriAttack(player):
+    print("Pending")
+
+
+def ThunderFang(player):
+    print("ThunderFang Effect ->")
+    if player == "P1":
+        i = int(input("Roll Dice  Odd = Paralized  , Even = Disadvantage"))
+        if i == 1 or i == 3 or i == 5:
+            print("Rival Paralized ")
+            GloVar.P2Status = "Paralized"
+        elif i == 2 or i == 4 or i == 6:
+            print("Rival Disadvantage")
+            GloVar.P1Effect = "Disadvantage"
+    elif player == "P2":
+        i = int(input("Roll Dice  Odd = Paralized  , Even = Disadvantage"))
+        if i == 1 or i == 3 or i == 5:
+            print("Rival Paralized ")
+            GloVar.P1Status = "Paralized"
+        elif i == 2 or i == 4 or i == 6:
+            print("Rival Disadvantage")
+            GloVar.P2Effect = "Disadvantage"

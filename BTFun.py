@@ -1,19 +1,95 @@
 import sqlite3
 import GloVar
 import effects
+import serial
 
 
-def selectPokemon(player):
+def resetNewBattle():
+    GloVar.P1Dice = 0
+    GloVar.P2Dice = 0
+    GloVar.TotalP1 = 0
+    GloVar.TotalP2 = 0
+    GloVar.P1BonusType = 0
+    GloVar.P2BonusType = 0
+    GloVar.Round = 0
+    GloVar.P1Status = "Normal"
+    GloVar.P2Status = "Normal"
+    GloVar.P1Effect = "None"
+    GloVar.P2Effect = "None"
+
+
+def resetNewRound():
+    GloVar.P1Dice = 0
+    GloVar.P2Dice = 0
+    GloVar.TotalP1 = 0
+    GloVar.TotalP2 = 0
+    GloVar.P1BonusType = 0
+    GloVar.P2BonusType = 0
+    GloVar.P1Effect = "None"
+    GloVar.P2Effect = "None"
+
+
+def readSerialUntil(arduino):
+
+    while True:
+        if arduino.in_waiting:
+            data = arduino.readline().decode('utf-8').rstrip('\n')
+            return data
+
+
+def sendToArduino(text, arduino):
+    arduino.write((text + "\r").encode())
+
+
+def buttons(arduino):
+    arduino.write("OPTION\r".encode())
+    data = readSerialUntil(arduino)
+    i = int(data)
+    return i
+
+
+def dice(arduino):
+    arduino.write("DICE\r".encode())
+    data = readSerialUntil(arduino)
+    i = int(data)
+    return i
+
+
+def addLevel(arduino):
     conn = sqlite3.connect('pokimon.sqlite')
     c = conn.cursor()
     found = False
     while found == False:
-        pokedex = input("Select #Pokedex de Pokemon ")
-        c.execute("SELECT * FROM pokemons WHERE ID = (?)", (pokedex,))
+        print("Scan Pokemon")
+        tag = readSerialUntil(arduino)
+        newTAG = (tag[:-1])
+        c.execute("SELECT * FROM pokemons WHERE UID = (?)", (newTAG,))
         pokemon = c.fetchone()
-
         if pokemon == None:
             print("Pokemon not found , please try again ")
+            sendToArduino("READ", arduino)
+        else:
+            found = True
+            Level = pokemon[9] + 1
+            c.execute("UPDATE pokemons SET Extra=(?)  WHERE UID = (?)",
+                      (Level, newTAG,))
+            conn.commit()
+            conn.close()
+            print("Level updated Succesfully")
+
+
+def selectPokemon(player, arduino):
+    conn = sqlite3.connect('pokimon.sqlite')
+    c = conn.cursor()
+    found = False
+    while found == False:
+        tag = readSerialUntil(arduino)
+        newTAG = (tag[:-1])
+        c.execute("SELECT * FROM pokemons WHERE UID = (?)", (newTAG,))
+        pokemon = c.fetchone()
+        if pokemon == None:
+            print("Pokemon not found , please try again ")
+            sendToArduino("READ", arduino)
 
         else:
             found = True
@@ -26,8 +102,8 @@ def selectPokemon(player):
                 GloVar.P1Atk1 = getAttack(pokemon[5])
                 GloVar.P1Atk2 = getAttack(pokemon[6])
                 GloVar.P1TM = pokemon[7]
-                GloVar.P1Extra = pokemon[8]
-                GloVar.P1Attatch = pokemon[9]
+                GloVar.P1Extra = pokemon[9]
+                GloVar.P1Attatch = pokemon[10]
             elif player == "P2":
                 GloVar.P2 = pokemon[2]
                 GloVar.P2Level = pokemon[3]
@@ -35,14 +111,14 @@ def selectPokemon(player):
                 GloVar.P2Atk1 = getAttack(pokemon[5])
                 GloVar.P2Atk2 = getAttack(pokemon[6])
                 GloVar.P2TM = pokemon[7]
-                GloVar.P2Extra = pokemon[8]
-                GloVar.P2Attatch = pokemon[9]
+                GloVar.P2Extra = pokemon[9]
+                GloVar.P2Attatch = pokemon[10]
 
 
 def getAttack(Attack):
     conn = sqlite3.connect('pokimon.sqlite')
     c = conn.cursor()
-    c.execute("SELECT * FROM attacks WHERE ID = (?)", (Attack,))
+    c.execute("SELECT * FROM Attacks WHERE IdAtk = (?)", (Attack,))
     attackfound = c.fetchone()
     if attackfound == None:
         print("Attack Not Found")
@@ -199,7 +275,7 @@ def attack_Bonus(Attack_type, PkmRival_type):
         return status
 
 
-def passAttack(Player, atk, bonusType):
+def passAttack(Player, atk, bonusType, atkChoosen):
 
     if Player == "P1":
         GloVar.P1AtkSelID = atk[0]
@@ -210,6 +286,7 @@ def passAttack(Player, atk, bonusType):
         GloVar.P1EffectActivate = atk[5]
         GloVar.P1DiceType = atk[6]
         GloVar.P1BonusType = bonusType
+        GloVar.P1AtkChoosen = atkChoosen
     elif Player == "P2":
         GloVar.P2AtkSelID = atk[0]
         GloVar.P2AtkSelected = atk[1]
@@ -219,9 +296,10 @@ def passAttack(Player, atk, bonusType):
         GloVar.P2EffectActivate = atk[5]
         GloVar.P2DiceType = atk[6]
         GloVar.P2BonusType = bonusType
+        GloVar.P2AtkChoosen = atkChoosen
 
 
-def selectAttack(player):
+def selectAttack(player, arduino):
 
     if player == "P1":
         Pokemon = GloVar.P1
@@ -252,14 +330,14 @@ def selectAttack(player):
             print("2.-" + atk2[1] + ":" +
                   str(atk2[3]) + "->" + "Bonus:" + str(bonusType2))
 
-            i = int(input())
+            i = buttons(arduino)
             if i == 1:
                 print("Attack selected:")
-                passAttack(player, atk1, bonusType1)
+                passAttack(player, atk1, bonusType1, 1)
 
             elif i == 2:
                 print("Attack selected:")
-                passAttack(player, atk2, bonusType2)
+                passAttack(player, atk2, bonusType2, 2)
             else:
                 print("Error attack not selected")
         else:
@@ -268,7 +346,7 @@ def selectAttack(player):
             bonusType1 = attack_Bonus(atk1[2], rivalType)
             print("1.-" + atk1[1] + ":" +
                   str(atk1[3]) + "->" + "Bonus:" + str(bonusType1))
-            passAttack(player, atk1, bonusType1)
+            passAttack(player, atk1, bonusType1, 1)
     else:
         # With TM and with ATK2
         if (atk2[0] != "000"):
@@ -284,18 +362,18 @@ def selectAttack(player):
             bonusTypeTM = attack_Bonus(TM[2], rivalType)
             print("3.-" + TM[1] + ":" +
                   str(TM[3]) + "->" + str(bonusTypeTM))
-            i = int(input())
+            i = buttons(arduino)
             if i == 1:
                 print("Attack selected:")
-                passAttack(player, atk1, bonusType1)
+                passAttack(player, atk1, bonusType1, 1)
 
             elif i == 2:
                 print("Attack selected:")
-                passAttack(player, atk2, bonusType2)
+                passAttack(player, atk2, bonusType2, 2)
 
             elif i == 3:
                 print("Attack selected:")
-                passAttack(player, TM, bonusTypeTM)
+                passAttack(player, TM, bonusTypeTM, 3)
             else:
                 print("Error attack not selected")
         else:
@@ -308,14 +386,14 @@ def selectAttack(player):
             print("3.-" + TM[1] + ":" +
                   str(TM[3]) + "->" + "Bonus:" + str(bonusTypeTM))
 
-            i = int(input())
+            i = buttons(arduino)
             if i == 1:
                 print("Attack selected:")
-                passAttack(player, atk1, bonusType1)
+                passAttack(player, atk1, bonusType1, 1)
 
             elif i == 3:
                 print("Attack selected:")
-                passAttack(player, TM, bonusTypeTM)
+                passAttack(player, TM, bonusTypeTM, 3)
             else:
                 print("Error attack not selected")
 
@@ -378,11 +456,39 @@ def instantEffect(player, effect, attackerStatus, defenderStatus, attackerEffect
     elif effect == "Sleep":
         defenderStatus = "Sleep"
         return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Snore":
+        attackerEffect = "Snore"
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "SleepTalk":
+        attackerEffect = "SleepTalk"
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "SmellingSalts":
+        attackerStatus = "SmellingSalts"
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Facade":
+        attackerStatus = "Facade"
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "StatusUp":
+        attackerStatus = "StatusUp"
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Neutro":
+        attackerStatus = "Neutro"
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Protect":
+        attackerStatus = "Protect"
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Detect":
+        attackerStatus = "Detect"
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+
+    elif effect == "DreamEater":
+        effects.DreamEater(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
     elif effect == "LevelUp":
-        effect.LevelUp(player)
+        effects.LevelUp(player)
         return attackerStatus, defenderStatus, attackerEffect, defenderEffect
     elif effect == "LevelDown":
-        effect.LevelDown(player)
+        effects.LevelDown(player)
         return attackerStatus, defenderStatus, attackerEffect, defenderEffect
     elif effect == "StatusUp":
         attackerEffect = "StatusUp"
@@ -390,13 +496,118 @@ def instantEffect(player, effect, attackerStatus, defenderStatus, attackerEffect
     elif effect == "WinTie":
         attackerEffect = "WinTie"
         return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Brine":
+        effects.Brine(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "PayBack":
+        effects.PayBack(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "MirrorCoat":
+        effects.MirrorCoat(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "LevelUp":
+        effects.LevelUp(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Counter":
+        effects.Counter(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "MeFirst":
+        effects.MeFirst(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "MetalBurst":
+        effects.MetalBurst(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Mimic":
+        effects.Mimic(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "LevelDown":
+        effects.LevelDown(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "PlusRound":
+        effects.PlusRound(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "RollOut":
+        effects.RolloOut(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "FuryCutter":
+        effects.FuryCutter(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "FuryCutter":
+        effects.FuryCutter(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "StealthRock":
+        effects.StealthRock(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Metronome":
+        effects.Metronome(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "HiddenPower":
+        effects.HiddenPower(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Judgement":
+        effects.Judgement(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Tranform":
+        effects.Transform(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Sketch":
+        effects.Sketch(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "KnockOff":
+        effects.KnockOff(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "MirrorMove":
+        effects.MirrorMove(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "MirrorMove":
+        effects.MirrorMove(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "FireFang":
+        effects.FireFang(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "IceFang":
+        effects.IceFang(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "ThunderFang":
+        effects.ThunderFang(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
 
+    elif effect == "Conversion":
+        effects.Conversion(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Conversion2":
+        effects.Conversion2(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "NoItems":
+        effects.NoItems(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Embargo":
+        effects.Embargo(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "MagicCoat":
+        effects.MagicCoat(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Safeguard":
+        effects.SafeGuard(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Thief":
+        effects.Thief(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "Covet":
+        effects.Covet(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "MeanLook":
+        effects.MeanLook(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
+    elif effect == "TriAttack":
+        effects.TriAttack(player)
+        return attackerStatus, defenderStatus, attackerEffect, defenderEffect
     else:
         print("effect no found ")
         return attackerStatus, defenderStatus, attackerEffect, defenderEffect
 
 
-def activateEffect(player):
+def activateEffect(player, arduino):
 
     if player == "P1":
         pokemon = GloVar.P1
@@ -417,7 +628,8 @@ def activateEffect(player):
 
     if effect != "NONE":
         if activate != "Automatic":
-            i = int(input("\n" + pokemon + ":  effect Activated ?"))
+            print("\n" + pokemon + ":  effect Activated ?")
+            i = buttons(arduino)
             if i == 1:
                 print("Effect Activated!!!!")
                 status = instantEffect(
@@ -460,50 +672,50 @@ def activateEffect(player):
         return
 
 
-def rollDicesEffect(player):
+def rollDicesEffect(player, arduino):
     if player == "P1":
         if GloVar.P1Effect == "Advantage":
             print(GloVar.P1 + "Roll 2 dices and discard the lowest")
-            throwDice(player)
+            throwDice(player, arduino)
         elif GloVar.P1Effect == "DoubleAdvantage":
             print(GloVar.P1 + "Roll 3 dices and discard the 2 lowest")
-            throwDice(player)
+            throwDice(player, arduino)
         elif GloVar.P1Effect == "Upto3":
-            effects.upto3(player)
+            effects.upto3(player, arduino)
 
         elif GloVar.P1Effect == "DoubleDice":
-            effects.doubleDice(player)
+            effects.doubleDice(player, arduino)
         elif GloVar.P2Effect == "Disadvantage":
             print(GloVar.P1 + "Roll 2 dices and discard the Highest")
-            throwDice(player)
+            throwDice(player, arduino)
         elif GloVar.P2Effect == "DoubleDisadvantage":
             print(GloVar.P1 + "Roll 3 dices and discard the 2 Highest")
-            throwDice(player)
+            throwDice(player, arduino)
         else:
-            throwDice(player)
+            throwDice(player, arduino)
     elif player == "P2":
         if GloVar.P2Effect == "Advantage":
             print(GloVar.P2 + "Roll 2 dices and discard the lowest")
-            throwDice(player)
+            throwDice(player, arduino)
         elif GloVar.P2Effect == "DoubleAdvantage":
             print(GloVar.P2 + "Roll 3 dices and discard the 2 lowest")
-            throwDice(player)
+            throwDice(player, arduino)
         elif GloVar.P2Effect == "Upto3":
-            effects.upto3(player)
+            effects.upto3(player, arduino)
 
         elif GloVar.P2Effect == "DoubleDice":
-            effects.doubleDice(player)
+            effects.doubleDice(player, arduino)
         elif GloVar.P1Effect == "Disadvantage":
             print(GloVar.P2 + "Roll 2 dices and discard the Highest")
-            throwDice(player)
+            throwDice(player, arduino)
         elif GloVar.P1Effect == "DoubleDisadvantage":
             print(GloVar.P2 + "Roll 3 dices and discard the 2 Highest")
-            throwDice(player)
+            throwDice(player, arduino)
         else:
-            throwDice(player)
+            throwDice(player, arduino)
 
 
-def removeStatus(player):
+def removeStatus(player, arduino):
     if player == "P1":
         pokemon = GloVar.P1
         status = GloVar.P1Status
@@ -513,14 +725,16 @@ def removeStatus(player):
 
     if status == "Frozen":
         print(pokemon + " is Frozen, need 4 to use attack:")
-        i = int(input("/n Roll D4 Dice ?"))
+        print("/n Roll D4 Dice ?")
+        i = dice(arduino)
         if i == 4:
             print("Status Removed")
             status = "Normal"
             return status
         else:
             print("Status not Removed ")
-            i = int(input("Use item to remove status ? \n 1.Yes / 2.NO"))
+            print("Use item to remove status ? \n 1.Yes / 2.NO")
+            i = buttons(arduino)
             if i == 1:
                 print("Status Removed with Item")
                 status = "Normal"
@@ -530,14 +744,16 @@ def removeStatus(player):
                 return status
     if status == "Paralized":
         print(pokemon + " is Parallized, need 1 to use attack:")
-        i = int(input("/n Roll D4 Dice ?"))
+        print("/n Roll D4 Dice ?")
+        i = dice(arduino)
         if i == 1:
             print("Status Removed")
             status = "Normal"
             return status
         else:
             print("Status not Removed ")
-            i = int(input("Use item to remove status ? \n 1.Yes / 2.NO"))
+            print("Use item to remove status ? \n 1.Yes / 2.NO")
+            i = buttons(arduino)
             if i == 1:
                 print("Status Removed with Item")
                 status = "Normal"
@@ -547,7 +763,8 @@ def removeStatus(player):
                 return status
     if status == "Sleep":
         print(pokemon + " is Sleeping, Unable to use attack:")
-        i = int(input("Use item to remove status ? \n 1.Yes / 2.NO"))
+        print("Use item to remove status ? \n 1.Yes / 2.NO")
+        i = buttons(arduino)
         if i == 1:
             print("Status Removed with Item")
             status = "Normal"
@@ -559,21 +776,34 @@ def removeStatus(player):
         return status
 
 
-def throwDice(player):
+def throwDice(player, arduino):
 
     if player == "P1":
-        i = int(input(GloVar.P1 + " Roll Dice = "))
-        GloVar.P1Dice = GloVar.P1Dice + i
         if GloVar.P1Status == "Confused":
-            if i == 1 or i == 3 or i == 6:
-                GloVar.P2Dice = GloVar.P2Dice + i
+            print(GloVar.P1 + " is confused !")
+            print(GloVar.P1 + " Roll Dice = ")
+            i = dice(arduino)
+            GloVar.P1Dice = GloVar.P1Dice + i
+            if GloVar.P1Status == "Confused":
+                if i == 1 or i == 3 or i == 5:
+                    GloVar.P2Dice = GloVar.P2Dice + i
+        else:
+            print(GloVar.P1 + " Roll Dice = ")
+            i = dice(arduino)
+            GloVar.P1Dice = GloVar.P1Dice + i
 
     elif player == "P2":
-        i = int(input(GloVar.P2 + " Roll Dice ="))
-        GloVar.P2Dice = GloVar.P2Dice + i
         if GloVar.P2Status == "Confused":
-            if i == 1 or i == 3 or i == 6:
+            print(GloVar.P2 + " is confused !")
+            print(GloVar.P2 + " Roll Dice =")
+            i = dice(arduino)
+            GloVar.P2Dice = GloVar.P2Dice + i
+            if i == 1 or i == 3 or i == 5:
                 GloVar.P1Dice = GloVar.P1Dice + i
+        else:
+            print(GloVar.P2 + " Roll Dice = ")
+            i = dice(arduino)
+            GloVar.P2Dice = GloVar.P2Dice + i
 
 
 def getAttackWithID(player, ID):
@@ -727,14 +957,18 @@ def sumPartial():
           str(GloVar.P2AtkPower) + " + B:" + str(GloVar.P2BonusType) + "->Total:" + str(GloVar.TotalP2))
 
 
-def effectBeforeSelectAttack(player):
+def disableBeforeSelectAttack(player):
     if player == "P1":
-        if GloVar.P2Atk1 == "033" or GloVar.P2Atk2 == "033":
-            i = int(input("P2 will use Disable ?"))
-            if i == 1:
-                effects.Disable("P2")
-            else:
-                return
+        if GloVar.P1Atk1[0] == "033" or GloVar.P1Atk2[0] == "033":
+            return
+        else:
+            if GloVar.P2Atk1[0] == "033" or GloVar.P2Atk2[0] == "033":
+                i = int(input("P2 will use Disable ?"))
+                if i == 1:
+                    GloVar.P2AtkEffect = "Disable"
+                    effects.Disable("P2")
+                else:
+                    return
 
         if GloVar.P2Atk1 == "186" or GloVar.P2Atk2 == "186":
             i = int(input("P2 will use Taunt ?"))
