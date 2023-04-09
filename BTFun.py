@@ -221,24 +221,23 @@ def passAttack(Player, atk, bonusType):
         GloVar.P2BonusType = bonusType
 
 
-def selectAttack(player):
-
+def selectAttack(player, battle):
+    bonusType1 = 0
+    bonusType2 = 0
+    bonusTypeTM = 0
     if player == "P1":
         Pokemon = GloVar.P1
         atk1 = GloVar.P1Atk1
         atk2 = GloVar.P1Atk2
         TM = GloVar.P1TM
         rivalType = GloVar.P2Type
+
     elif player == "P2":
         Pokemon = GloVar.P2
         atk1 = GloVar.P2Atk1
         atk2 = GloVar.P2Atk2
         TM = GloVar.P2TM
         rivalType = GloVar.P1Type
-
-    bonusType1 = 0
-    bonusType2 = 0
-    bonusTypeTM = 0
 
     if (TM == "000"):
         # No TM - with ATK2
@@ -247,10 +246,26 @@ def selectAttack(player):
             bonusType1 = attack_Bonus(atk1[2], rivalType)
             print("1.-" + atk1[1] + ":" +
                   str(atk1[3]) + "->" + "Bonus:" + str(bonusType1))
+            if player == "P1":
+                battle.P1Atk1_B.setText(str(bonusType1))
+                battle.P1Atk1.show()
+                battle.P1Atk1_B.show()
+            elif player == "P2":
+                battle.P2Atk1_B.setText(str(bonusType1))
+                battle.P2Atk1.show()
+                battle.P2Atk1_B.show()
 
             bonusType2 = attack_Bonus(atk2[2], rivalType)
             print("2.-" + atk2[1] + ":" +
                   str(atk2[3]) + "->" + "Bonus:" + str(bonusType2))
+            if player == "P1":
+                battle.P1Atk2_B.setText(str(bonusType2))
+                battle.P1Atk2.show()
+                battle.P1Atk2_B.show()
+            elif player == "P2":
+                battle.P2Atk2_B.setText(str(bonusType2))
+                battle.P2Atk2.show()
+                battle.P2Atk2_B.show()
 
             i = int(input())
             if i == 1:
@@ -268,6 +283,7 @@ def selectAttack(player):
             bonusType1 = attack_Bonus(atk1[2], rivalType)
             print("1.-" + atk1[1] + ":" +
                   str(atk1[3]) + "->" + "Bonus:" + str(bonusType1))
+
             passAttack(player, atk1, bonusType1)
     else:
         # With TM and with ATK2
@@ -277,13 +293,39 @@ def selectAttack(player):
             print("1.-" + atk1[1] + ":" +
                   str(atk1[3]) + "->" + "Bonus:" + str(bonusType1))
 
+            if player == "P1":
+                battle.P1Atk1_B.setText(str(bonusType1))
+                battle.P1Atk1.show()
+                battle.P1Atk1_B.show()
+            elif player == "P2":
+                battle.P2Atk1_B.setText(str(bonusType1))
+                battle.P2Atk1.show()
+                battle.P2Atk1_B.show()
+
             bonusType2 = attack_Bonus(atk2[2], rivalType)
             print("2.-" + atk2[1] + ":" +
                   str(atk2[3]) + "->" + "Bonus:" + str(bonusType2))
+            if player == "P1":
+                battle.P1Atk2_B.setText(str(bonusType2))
+                battle.P1Atk2.show()
+                battle.P1Atk2_B.show()
+            elif player == "P2":
+                battle.P2Atk2_B.setText(str(bonusType2))
+                battle.P2Atk2.show()
+                battle.P2Atk2_B.show()
 
             bonusTypeTM = attack_Bonus(TM[2], rivalType)
             print("3.-" + TM[1] + ":" +
                   str(TM[3]) + "->" + str(bonusTypeTM))
+            if player == "P1":
+                battle.P1TM_B.setText(str(bonusTypeTM))
+                battle.P1TM.show()
+                battle.P1TM_B.show()
+            elif player == "P2":
+                battle.P2TM_B.setText(str(bonusTypeTM))
+                battle.P2TM.show()
+                battle.P2TM_B.show()
+
             i = int(input())
             if i == 1:
                 print("Attack selected:")
@@ -303,11 +345,26 @@ def selectAttack(player):
             bonusType1 = attack_Bonus(atk1[2], rivalType)
             print("1.-" + atk1[1] + ":" +
                   str(atk1[3]) + "->" + "Bonus:" + str(bonusType1))
+            if player == "P1":
+                battle.P1Atk1_B.setText(str(bonusType1))
+                battle.P1Atk1.show()
+                battle.P1Atk1_B.show()
+            elif player == "P2":
+                battle.P2Atk1_B.setText(str(bonusType1))
+                battle.P2Atk1.show()
+                battle.P2Atk1_B.show()
 
             bonusTypeTM = attack_Bonus(TM[2], rivalType)
             print("3.-" + TM[1] + ":" +
                   str(TM[3]) + "->" + "Bonus:" + str(bonusTypeTM))
-
+            if player == "P1":
+                battle.P1TM_B.setText(str(bonusTypeTM))
+                battle.P1TM.show()
+                battle.P1TM_B.show()
+            elif player == "P2":
+                battle.P2TM_B.setText(str(bonusTypeTM))
+                battle.P2TM.show()
+                battle.P2TM_B.show()
             i = int(input())
             if i == 1:
                 print("Attack selected:")
@@ -396,7 +453,7 @@ def instantEffect(player, effect, attackerStatus, defenderStatus, attackerEffect
         return attackerStatus, defenderStatus, attackerEffect, defenderEffect
 
 
-def activateEffect(player):
+def activateEffect(player, battle):
 
     if player == "P1":
         pokemon = GloVar.P1
@@ -417,6 +474,7 @@ def activateEffect(player):
 
     if effect != "NONE":
         if activate != "Automatic":
+            battle.steps.setText(pokemon + ":  effect Activated ?")
             i = int(input("\n" + pokemon + ":  effect Activated ?"))
             if i == 1:
                 print("Effect Activated!!!!")
@@ -439,6 +497,7 @@ def activateEffect(player):
             if i == 2:
                 print("Effect NO activated!!!! ")
         elif activate == "Automatic":
+
             print("Effect Activated Automatically!!!!")
             status = instantEffect(
                 player, effect, statusPlayer, statusRival, playerEffect, rivalEffect)
@@ -460,13 +519,18 @@ def activateEffect(player):
         return
 
 
-def rollDicesEffect(player):
+def rollDicesEffect(player, battle):
     if player == "P1":
         if GloVar.P1Effect == "Advantage":
             print(GloVar.P1 + "Roll 2 dices and discard the lowest")
+            battle.steps.setText(
+                GloVar.P1 + "Roll 2 dices and discard the lowest")
+
             throwDice(player)
         elif GloVar.P1Effect == "DoubleAdvantage":
             print(GloVar.P1 + "Roll 3 dices and discard the 2 lowest")
+            battle.steps.setText(
+                GloVar.P1 + "Roll 3 dices and discard the 2 lowest")
             throwDice(player)
         elif GloVar.P1Effect == "Upto3":
             effects.upto3(player)
@@ -475,18 +539,26 @@ def rollDicesEffect(player):
             effects.doubleDice(player)
         elif GloVar.P2Effect == "Disadvantage":
             print(GloVar.P1 + "Roll 2 dices and discard the Highest")
+            battle.steps.setText(
+                GloVar.P1 + "Roll 2 dices and discard the Highest")
             throwDice(player)
         elif GloVar.P2Effect == "DoubleDisadvantage":
             print(GloVar.P1 + "Roll 3 dices and discard the 2 Highest")
+            battle.steps.setText(
+                (GloVar.P1 + "Roll 2 dices and discard the Highest"))
             throwDice(player)
         else:
             throwDice(player)
     elif player == "P2":
         if GloVar.P2Effect == "Advantage":
             print(GloVar.P2 + "Roll 2 dices and discard the lowest")
+            battle.steps.setText(
+                GloVar.P2 + "Roll 2 dices and discard the lowest")
             throwDice(player)
         elif GloVar.P2Effect == "DoubleAdvantage":
             print(GloVar.P2 + "Roll 3 dices and discard the 2 lowest")
+            battle.steps.setText(
+                GloVar.P2 + "Roll 3 dices and discard the 2 lowest")
             throwDice(player)
         elif GloVar.P2Effect == "Upto3":
             effects.upto3(player)
@@ -495,15 +567,19 @@ def rollDicesEffect(player):
             effects.doubleDice(player)
         elif GloVar.P1Effect == "Disadvantage":
             print(GloVar.P2 + "Roll 2 dices and discard the Highest")
+            battle.steps.setText(
+                GloVar.P2 + "Roll 2 dices and discard the Highest")
             throwDice(player)
         elif GloVar.P1Effect == "DoubleDisadvantage":
             print(GloVar.P2 + "Roll 3 dices and discard the 2 Highest")
+            battle.steps.setText(
+                GloVar.P2 + "Roll 3 dices and discard the 2 Highest")
             throwDice(player)
         else:
             throwDice(player)
 
 
-def removeStatus(player):
+def removeStatus(player, battle):
     if player == "P1":
         pokemon = GloVar.P1
         status = GloVar.P1Status
@@ -513,6 +589,7 @@ def removeStatus(player):
 
     if status == "Frozen":
         print(pokemon + " is Frozen, need 4 to use attack:")
+        battle.steps.setText(pokemon + " is Frozen, need 4 to use attack:")
         i = int(input("/n Roll D4 Dice ?"))
         if i == 4:
             print("Status Removed")
@@ -521,6 +598,8 @@ def removeStatus(player):
         else:
             print("Status not Removed ")
             i = int(input("Use item to remove status ? \n 1.Yes / 2.NO"))
+            battle.steps.setText(
+                "Status not Removed, use Item to remove status ? ")
             if i == 1:
                 print("Status Removed with Item")
                 status = "Normal"
@@ -530,6 +609,7 @@ def removeStatus(player):
                 return status
     if status == "Paralized":
         print(pokemon + " is Parallized, need 1 to use attack:")
+        battle.steps.setText(pokemon + " is Parallized, need 1 to use attack:")
         i = int(input("/n Roll D4 Dice ?"))
         if i == 1:
             print("Status Removed")
@@ -538,6 +618,8 @@ def removeStatus(player):
         else:
             print("Status not Removed ")
             i = int(input("Use item to remove status ? \n 1.Yes / 2.NO"))
+            battle.steps.setText(
+                "Status not Removed, use Item to remove status ? ")
             if i == 1:
                 print("Status Removed with Item")
                 status = "Normal"
@@ -547,6 +629,8 @@ def removeStatus(player):
                 return status
     if status == "Sleep":
         print(pokemon + " is Sleeping, Unable to use attack:")
+        battle.steps.setText(
+            pokemon + " is Sleeping, use item to remove status ?")
         i = int(input("Use item to remove status ? \n 1.Yes / 2.NO"))
         if i == 1:
             print("Status Removed with Item")

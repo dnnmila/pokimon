@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="pokemon">
+    <file>Background.png</file>
+    <file>BackgroundBattle.png</file>
+    <file>nature.jpg</file>
+    <file>PKMBG2.jpg</file>
+    <file>pokelogo.png</file>
+    <file>pokemonStart.png</file>
+  </qresource>
+</RCC>
